@@ -1,3 +1,26 @@
+/* TODO
+Congratulations Popup
+
+When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was.
+---
+Star Rating
+
+The game displays a star rating (from 1 to at least 3) that reflects the player's performance. At the beginning of a game, it should display at least 3 stars. After some number of moves, it should change to a lower star rating. After a few more moves, it should change to a even lower star rating (down to 1).
+
+The number of moves needed to change the rating is up to you, but it should happen at some point.
+---
+Timer
+
+When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
+---
+Move Counter
+
+Game displays the current number of moves a user has made.
+
+*/
+
+
+
 /*
  * Create a list that holds all of your cards
  */
@@ -26,15 +49,18 @@ function displayCards() {
     let cardHTML = shuffle(cards).map(function(card){
         return createCard(card);
     });
-
+    
     deck.innerHTML = cardHTML.join('');
+    // moves = 0;
+    // moveCounter.innerText = moves;
+
 } 
 
 displayCards();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -49,6 +75,10 @@ function shuffle(array) {
 
 const allCards = document.querySelectorAll('.card');
 let openCards = [];
+let moves = 0;
+let moveCounter = document.querySelector('.moves');
+// moveCounter.innerText = moves;
+
 
 /* 
     set up the event listener for a card. If a card is clicked:
@@ -89,6 +119,7 @@ allCards.forEach(function(card) {
                     },1000
 
                     );
+                    
                 }
             }
         }
@@ -100,3 +131,14 @@ allCards.forEach(function(card) {
  /*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+/*
+Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating.
+*/
+restart = document.querySelector('.restart');
+
+restart.addEventListener('click', function() {
+    location.reload();
+})
+
+
