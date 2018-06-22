@@ -1,20 +1,7 @@
-/* TODO
-Congratulations Popup
-
-When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was.
----
-Timer
-
-When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
-
-*/
-
-
-
 /*
     Create a list that holds all of your cards
  */
-const cards = ['fa-diamond','fa-diamond',
+let cards = ['fa-diamond','fa-diamond',
                 'fa-paper-plane-o','fa-paper-plane-o',
                 'fa-anchor','fa-anchor',
                 'fa-bolt','fa-bolt',
@@ -128,23 +115,49 @@ restart.addEventListener('click', function() {
 
 let moveCounter = document.querySelector('.moves'),
     moves = 0;
+const starsHTML = document.getElementsByClassName('stars');
+const starHTML = document.getElementsByClassName('fa-star');
 
-cards = addEventListener('click', function() {
+
+    cards = addEventListener('click', function() {
     moves += 1;
+
     if (moves % 2 == 0){
         moveCounter.innerHTML = moves/2; 
     }
-})
 
-/*
+    /*
     Star Rating
-
     The game displays a star rating (from 1 to at least 3) that reflects the player's performance. At the beginning of a game, it should display at least 3 stars. After some number of moves, it should change to a lower star rating. After a few more moves, it should change to a even lower star rating (down to 1).
 
     The number of moves needed to change the rating is up to you, but it should happen at some point.
-*/
+    */
 
+    if (moves == 20){
+        starHTML[3].setAttribute("class", "fa fa-star-o");
+    }
+    else if (moves == 40){
+        starHTML[2].setAttribute("class", "fa fa-star-o");
+    }
+    else if (moves == 60){
+        starHTML[1].setAttribute("class", "fa fa-star-o");
+    }
+    else if (moves == 80){
+        starHTML[0].setAttribute("class", "fa fa-star-o");
+        //Display a message saying "GAME OVER" and restarting the game with closing the window
+        console.log("GAME OVER");
+    }
+})
 
 /*  
+    Congratulations Popup
     if all cards have matched, display a message with the final score (put this         functionality in another function that you call from this one)
+
+    When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was.
  */
+
+
+/* 
+    Timer
+    When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
+*/
