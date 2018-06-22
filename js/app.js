@@ -1,14 +1,14 @@
 /*
     Create a list that holds all of your cards
  */
-let cards = ['fa-diamond','fa-diamond',
-                'fa-paper-plane-o','fa-paper-plane-o',
-                'fa-anchor','fa-anchor',
-                'fa-bolt','fa-bolt',
-                'fa-cube','fa-cube',
-                'fa-leaf','fa-leaf',
-                'fa-bicycle','fa-bicycle',
-                'fa-bomb','fa-bomb'
+let cards = ['fa-diamond', 'fa-diamond',
+    'fa-paper-plane-o', 'fa-paper-plane-o',
+    'fa-anchor', 'fa-anchor',
+    'fa-bolt', 'fa-bolt',
+    'fa-cube', 'fa-cube',
+    'fa-leaf', 'fa-leaf',
+    'fa-bicycle', 'fa-bicycle',
+    'fa-bomb', 'fa-bomb'
 ];
 
 /*
@@ -23,13 +23,13 @@ function createCard(card) {
 
 function displayCards() {
     const deck = document.querySelector('.deck');
-    let cardHTML = shuffle(cards).map(function(card){
+    let cardHTML = shuffle(cards).map(function (card) {
         return createCard(card);
     });
-    
+
     deck.innerHTML = cardHTML.join('');
 
-} 
+}
 
 displayCards();
 
@@ -58,17 +58,17 @@ let openCards = [];
    - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one) 
 */
 
-allCards.forEach(function(card) {
-    card.addEventListener('click', function(event) {
-        if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match') ){
+allCards.forEach(function (card) {
+    card.addEventListener('click', function (event) {
+        if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
             openCards.push(card);
-            card.classList.add('open','show');
-/* 
-    if the list already has another card, check to see if the two cards match
-    if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one) 
-*/
-            if(openCards.length ==2) {
-                if(openCards[0].dataset.card ==openCards[1].dataset.card) {
+            card.classList.add('open', 'show');
+            /* 
+                if the list already has another card, check to see if the two cards match
+                if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one) 
+            */
+            if (openCards.length == 2) {
+                if (openCards[0].dataset.card == openCards[1].dataset.card) {
                     openCards[0].classList.add('match');
                     openCards[0].classList.add('open');
                     openCards[0].classList.add('show');
@@ -79,19 +79,19 @@ allCards.forEach(function(card) {
 
                     openCards = [];
                 } else {
-/*
-    if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-*/ 
-                    setTimeout(function() {
-                        openCards.forEach(function(card){
-                            card.classList.remove('open','show');
+                    /*
+                        if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+                    */
+                    setTimeout(function () {
+                        openCards.forEach(function (card) {
+                            card.classList.remove('open', 'show');
                         });
 
                         openCards = [];
-                    },500
+                    }, 500
 
                     );
-                    
+
                 }
             }
         }
@@ -104,7 +104,7 @@ allCards.forEach(function(card) {
 
 restart = document.querySelector('.restart');
 
-restart.addEventListener('click', function() {
+restart.addEventListener('click', function () {
     location.reload();
 })
 
@@ -119,11 +119,11 @@ const starsHTML = document.getElementsByClassName('stars');
 const starHTML = document.getElementsByClassName('fa-star');
 
 
-    cards = addEventListener('click', function() {
+cards = addEventListener('click', function () {
     moves += 1;
 
-    if (moves % 2 == 0){
-        moveCounter.innerHTML = moves/2; 
+    if (moves % 2 == 0) {
+        moveCounter.innerHTML = moves / 2;
     }
 
     /*
@@ -133,19 +133,20 @@ const starHTML = document.getElementsByClassName('fa-star');
     The number of moves needed to change the rating is up to you, but it should happen at some point.
     */
 
-    if (moves == 20){
+    if (moves == 20) {
         starHTML[3].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 40){
+    else if (moves == 40) {
         starHTML[2].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 60){
+    else if (moves == 60) {
         starHTML[1].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 80){
+    else if (moves == 80) {
         starHTML[0].setAttribute("class", "fa fa-star-o");
-        //Display a message saying "GAME OVER" and restarting the game with closing the window
-        console.log("GAME OVER");
+        //Display a message saying "GAME OVER" and restarting the game 
+        openWindow(`GAME OVER`);
+        location.reload();
     }
 })
 
@@ -155,7 +156,13 @@ const starHTML = document.getElementsByClassName('fa-star');
 
     When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was.
  */
+function openWindow(message) {
+    let newWindow = window.open(``, null, `height=200,width=400,left=400,top=200`);
+    newWindow.focus();
 
+    let html = `<div style="font-size:30px">${message}</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
+
+}
 
 /* 
     Timer
