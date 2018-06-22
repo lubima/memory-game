@@ -50,11 +50,11 @@ function shuffle(array) {
 
 // Message window pop-up function
 
-function openWindow(message,moves) {
+function openWindow(message,moves,minutes,seconds) {
     let newWindow = window.open(``, null, `height=200,width=800,left=200,top=200`);
     newWindow.focus();
 
-    let html = `<div style="font-size:30px">${message} * Your moves were:${moves}</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
+    let html = `<div style="font-size:30px">${message} * Your moves were:${moves} * Your time was: ${minutes} minutes and ${seconds} seconds</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
 
 }
 
@@ -115,6 +115,9 @@ allCards.forEach(function (card) {
     increment the move counter and display it on the page (put this functionality in another function that you call from this one)
     */
     moves += 1;
+    if(moves == 1){
+        timer();
+    }
 
     if (moves % 2 == 0) {
         moveCounter.innerHTML = moves / 2;
@@ -127,19 +130,19 @@ allCards.forEach(function (card) {
     The number of moves needed to change the rating is up to you, but it should happen at some point.
     */
 
-    if (moves == 2) {
+    if (moves == 20) {
         starHTML[3].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 4) {
+    else if (moves == 40) {
         starHTML[2].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 6) {
+    else if (moves == 60) {
         starHTML[1].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 8) {
+    else if (moves == 80) {
         starHTML[0].setAttribute("class", "fa fa-star-o");
         //Display a message saying "GAME OVER" and restarting the game 
-        openWindow(`GAME OVER`,moves);
+        openWindow(`GAME OVER`,moves,minutes,seconds);
         location.reload();
     }
 /*  
@@ -152,15 +155,13 @@ allCards.forEach(function (card) {
     if (card.classList.contains('match')){
         matchedCards.push(card);
         if (matchedCards.length == 8) {
-            openWindow(`CONGRATULATIONS!!!`,moves);
+            openWindow(`CONGRATULATIONS!!!`,moves,minutes,seconds);
             location.reload();
         }
     }
     });
     
 });
-
-
 
 /*
     Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating.
@@ -172,9 +173,29 @@ restart.addEventListener('click', function () {
     location.reload();
 })
 
-
-
 /* 
     Timer
     When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
 */
+//https://codepad.co/snippet/YMYUDYgr
+
+let time = document.getElementsByTagName('h3')[0],
+seconds = 0, 
+minutes = 0, 
+hours = 0,
+t;
+
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+    }
+    
+    time.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
