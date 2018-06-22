@@ -48,8 +48,24 @@ function shuffle(array) {
     return array;
 }
 
+// Message window pop-up function
+
+function openWindow(message,moves) {
+    let newWindow = window.open(``, null, `height=200,width=800,left=200,top=200`);
+    newWindow.focus();
+
+    let html = `<div style="font-size:30px">${message} * Your moves were:${moves}</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
+
+}
+
 const allCards = document.querySelectorAll('.card');
+// const starsHTML = document.getElementsByClassName('stars');
+const starHTML = document.getElementsByClassName('fa-star');
 let openCards = [];
+let matchedCards = [];
+let moveCounter = document.querySelector('.moves');
+let moves = 0;
+
 
 
 /* 
@@ -95,31 +111,9 @@ allCards.forEach(function (card) {
                 }
             }
         }
-    });
-});
-
-/*
-    Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating.
-*/
-
-restart = document.querySelector('.restart');
-
-restart.addEventListener('click', function () {
-    location.reload();
-})
-
-/*
+    /*
     increment the move counter and display it on the page (put this functionality in another function that you call from this one)
-*/
-// https://codepen.io/juliogcampos/pen/BzdjwY
-
-let moveCounter = document.querySelector('.moves'),
-    moves = 0;
-const starsHTML = document.getElementsByClassName('stars');
-const starHTML = document.getElementsByClassName('fa-star');
-
-
-cards = addEventListener('click', function () {
+    */
     moves += 1;
 
     if (moves % 2 == 0) {
@@ -133,36 +127,52 @@ cards = addEventListener('click', function () {
     The number of moves needed to change the rating is up to you, but it should happen at some point.
     */
 
-    if (moves == 20) {
+    if (moves == 2) {
         starHTML[3].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 40) {
+    else if (moves == 4) {
         starHTML[2].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 60) {
+    else if (moves == 6) {
         starHTML[1].setAttribute("class", "fa fa-star-o");
     }
-    else if (moves == 80) {
+    else if (moves == 8) {
         starHTML[0].setAttribute("class", "fa fa-star-o");
         //Display a message saying "GAME OVER" and restarting the game 
-        openWindow(`GAME OVER`);
+        openWindow(`GAME OVER`,moves);
         location.reload();
     }
-})
-
 /*  
     Congratulations Popup
     if all cards have matched, display a message with the final score (put this         functionality in another function that you call from this one)
 
     When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was.
  */
-function openWindow(message) {
-    let newWindow = window.open(``, null, `height=200,width=400,left=400,top=200`);
-    newWindow.focus();
 
-    let html = `<div style="font-size:30px">${message}</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
+    if (card.classList.contains('match')){
+        matchedCards.push(card);
+        if (matchedCards.length == 8) {
+            openWindow(`CONGRATULATIONS!!!`,moves);
+            location.reload();
+        }
+    }
+    });
+    
+});
 
-}
+
+
+/*
+    Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating.
+*/
+
+restart = document.querySelector('.restart');
+
+restart.addEventListener('click', function () {
+    location.reload();
+})
+
+
 
 /* 
     Timer
