@@ -48,43 +48,6 @@ function shuffle(array) {
     return array;
 }
 
-// Message window pop-up function
-
-function openWindow(message,moves,minutes,seconds) {
-    let newWindow = window.open(``, null, `height=200,width=800,left=200,top=200`);
-    newWindow.focus();
-
-    let html = `<div style="font-size:30px">${message} * Your moves were:${moves} * Your time was: ${minutes} minutes and ${seconds} seconds</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
-
-}
-//*******Modal******** 
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-//********* 
-
 const allCards = document.querySelectorAll('.card');
 // const starsHTML = document.getElementsByClassName('stars');
 const starHTML = document.getElementsByClassName('fa-star');
@@ -182,13 +145,54 @@ allCards.forEach(function (card) {
     if (card.classList.contains('match')){
         matchedCards.push(card);
         if (matchedCards.length == 8) {
-            openWindow(`CONGRATULATIONS!!!`,moves,minutes,seconds);
-            location.reload();
+            openModal();
+            
         }
     }
     });
     
 });
+
+
+// Message window pop-up function
+
+function openModal() {
+    modal.style.display = "block";
+    
+    // let newWindow = window.open(``, null, `height=200,width=800,left=200,top=200`);
+    // newWindow.focus();
+
+    // let html = `<div style="font-size:30px">${message} * Your moves were:${moves} * Your time was: ${minutes} minutes and ${seconds} seconds</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
+
+}
+//*******Modal******** 
+// Get the modal
+let modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+let btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+//********* 
+
 
 /*
     Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating.
