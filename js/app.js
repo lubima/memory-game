@@ -55,6 +55,7 @@ let openCards = [];
 let matchedCards = [];
 let moveCounter = document.querySelector('.moves');
 let moves = 0;
+let stars = 0;
 
 
 
@@ -131,13 +132,24 @@ allCards.forEach(function (card) {
     }
     else if (moves == 80) {
         starHTML[0].setAttribute("class", "fa fa-star-o");
-        //Display a message saying "GAME OVER" and restarting the game 
-        openWindow(`GAME OVER`,moves,minutes,seconds);
         location.reload();
+    }
+
+    if (moves<=20){
+        stars=4;
+    }
+    else if(moves>20 && moves<=40){
+        stars=3;
+    }
+    else if(moves>40 && moves<=60){
+        stars=2;
+    }
+    else if(moves>60){
+        stars=1;
     }
 /*  
     Congratulations Popup
-    if all cards have matched, display a message with the final score (put this         functionality in another function that you call from this one)
+    if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 
     When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was.
  */
@@ -145,8 +157,9 @@ allCards.forEach(function (card) {
     if (card.classList.contains('match')){
         matchedCards.push(card);
         if (matchedCards.length == 8) {
+            let html = `With ${moves/2} moves and ${stars} star(s). `;
+            movesMsg.prepend(document.createTextNode(html));    
             openModal();
-            
         }
     }
     });
@@ -154,45 +167,43 @@ allCards.forEach(function (card) {
 });
 
 
-// Message window pop-up function
+/* 
+Congratulations Modal
+*/
 
-function openModal() {
-    modal.style.display = "block";
-    
-    // let newWindow = window.open(``, null, `height=200,width=800,left=200,top=200`);
-    // newWindow.focus();
-
-    // let html = `<div style="font-size:30px">${message} * Your moves were:${moves} * Your time was: ${minutes} minutes and ${seconds} seconds</div>`; newWindow.document.body.insertAdjacentHTML('afterbegin', html);
-
-}
-//*******Modal******** 
 // Get the modal
-let modal = document.getElementById('myModal');
+let modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-let btn = document.getElementById("myBtn");
+let btn = document.getElementById("playAgain");
 
 // Get the <span> element that closes the modal
 let span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
+let movesMsg = document.getElementById("wooMsg");
+
+// When the user clicks the button, can play again/restarts
 btn.onclick = function() {
-    modal.style.display = "block";
+    location.reload();
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
+    location.reload();
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        location.reload();
     }
 }
-//********* 
 
+function openModal() {
+    modal.style.display = "block";
+}
 
 /*
     Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating.
