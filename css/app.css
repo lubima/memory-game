@@ -69,6 +69,7 @@ h1 {
     transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
+    pointer-events: none;
 }
 
 .deck .card.show {
@@ -108,7 +109,10 @@ h1 {
     cursor: pointer;
 }
 
-/* The Modal (background) */
+/* 
+* The Modal (background) 
+*/
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -123,7 +127,10 @@ h1 {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
+/* 
+* Modal Content 
+*/
+
 .modal-content {
     position: relative;
     background-color: #fefefe;
@@ -140,7 +147,10 @@ h1 {
     text-align: center;
 }
 
-/* Add Animation */
+/* 
+* Modal  - Add Animation 
+*/ 
+
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0} 
     to {top:0; opacity:1}
@@ -151,7 +161,10 @@ h1 {
     to {top:0; opacity:1}
 }
 
-/* The Close Button */
+/* 
+* Modal - The Close Button 
+*/ 
+
 .close {
     color: black;
     float: right;
