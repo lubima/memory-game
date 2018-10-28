@@ -1,10 +1,10 @@
 # Memory Game Project
 
-A little info about your project and/ or overview that explains what the project is about.
+The game is a complete browser-based card matching game (also known as Concentration).The game board consists of sixteen "cards" arranged in a grid. The deck is made up of eight different pairs of cards, each with different symbols on one side. The cards are arranged randomly on the grid with the symbol face down. The gameplay rules are very simple: flip over two hidden cards at a time to locate the ones that match!
 
 ## Instructions
 
-To get started, open `js/app.js` and start building out the app's functionality
+To get started, open the `Memory Game` folder which contains all the files.
 
 ## Contributing
 
