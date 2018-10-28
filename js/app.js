@@ -132,7 +132,7 @@ allCards.forEach(function (card) {
     }
     else if (moves == 80) {
         starHTML[0].setAttribute("class", "fa fa-star-o");
-        location.reload();
+        history.go(0);
     }
 
     if (moves<=20){
@@ -184,20 +184,20 @@ let movesMsg = document.getElementById("wooMsg");
 
 // When the user clicks the button, can play again/restarts
 btn.onclick = function() {
-    location.reload();
+    history.go(0);
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
-    location.reload();
+    history.go(0);
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
-        location.reload();
+        history.go(0);
     }
 }
 
@@ -212,9 +212,8 @@ function openModal() {
 restart = document.querySelector('.restart');
 
 restart.addEventListener('click', function () {
-    location.reload();
+        history.go(0);
 })
-
 /* 
     Timer
     When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
